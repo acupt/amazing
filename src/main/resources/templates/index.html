@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>acupt</title>
 </head>
+<script src='/js/jquery.1.7.1.min.js'></script>
 <body>
 <div align="center">
-    <img width="100%" src="/img/dog_smile.gif">
+    <img id="img" src="/img/dog_smile.gif">
 </div>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        var w = document.body.scrollWidth;
+        var h = document.body.scrollHeight;
+        var img = document.getElementById('img');
+        if (w > h) {
+//            img.style.height = h + "px";
+            img.style.height = "100%";
+        } else {
+            img.style.width = "100%";
+//            img.style.width = w + "px";
+        }
+    })
+</script>
