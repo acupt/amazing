@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  thymeleaf:
+    mode: LEGACYHTML5
+    encoding: UTF-8
+#  mvc:
+#    favicon:
+#      enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3307/acupt?characterEncoding=UTF-8
+    username: root
+    password: 000000
+    driver-class-name: com.mysql.jdbc.Driver
