@@ -8,9 +8,6 @@
     <artifactId>amazing</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>basic</module>
-    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
