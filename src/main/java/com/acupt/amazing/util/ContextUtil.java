@@ -37,6 +37,10 @@ public class ContextUtil implements ApplicationContextAware {
         return ip;
     }
 
+    public static String getAgent(HttpServletRequest request) {
+        return request.getHeader("User-Agent");
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;

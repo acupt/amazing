@@ -1,17 +1,25 @@
 server:
-  port: 8080
+  port: @acupt.server.port@
+  max-http-header-size: 8192
   tomcat:
     uri-encoding: UTF-8
+
 
 spring:
   thymeleaf:
     mode: LEGACYHTML5
     encoding: UTF-8
-#  mvc:
-#    favicon:
-#      enabled: false
   datasource:
-    url: jdbc:mysql://localhost:3307/acupt?characterEncoding=UTF-8
-    username: root
-    password: 000000
+    url: @acupt.mysql.url@
+    username: @acupt.mysql.username@
+    password: @acupt.mysql.password@ #配置文件中要加引号保证准确
     driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+#spring.jpa.properties.hibernate.hbm2ddl.auto: validate
+#spring.jpa.hibernate.ddl.auto: create-drop
+#spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
