@@ -6,7 +6,6 @@
 
     <groupId>com.acupt</groupId>
     <artifactId>amazing</artifactId>
-    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
