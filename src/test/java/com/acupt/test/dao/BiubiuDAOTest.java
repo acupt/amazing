@@ -25,8 +25,8 @@ public class BiubiuDAOTest extends BaseTest {
     public void testInsert() {
         Biubiu biubiuDO = new Biubiu();
         biubiuDO.setIp("127.0.0.1");
-        biubiuDO.setAgent("mac");
-        biubiuDO.setContent("hello,world!");
+        biubiuDO.setAgent("me");
+        biubiuDO.setContent("test insert");
         biubiuDO.setGmtCreated(new Date());
         out(biubiuDAO.save(biubiuDO));
     }
