@@ -1,7 +1,8 @@
 package com.acupt.test;
 
 import com.acupt.amazing.AmazingApplication;
-import com.acupt.util.GsonUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,12 +15,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = AmazingApplication.class)
 public class BaseTest {
 
+    private static Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").setPrettyPrinting().create();
+
     @Test
     public void testOut() {
-        out("test out " + getClass());
+        print("test out " + getClass());
     }
 
-    protected void out(Object object) {
-        System.out.println(GsonUtil.toJson(object));
+    protected void print(Object object) {
+        System.err.println(gson.toJson(object));
     }
 }

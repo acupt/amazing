@@ -38,6 +38,24 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </encoder>
     </appender>
 
+    <appender name="serviceAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/service.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN_MUTI}</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.acupt.service" level="info" additivity="false">
+        <appender-ref ref="serviceAppender"/>
+        <appender-ref ref="stdoutAppender"/>
+    </logger>
+    <logger name="com.acupt.aspect.ServiceAspect" level="info" additivity="false">
+        <appender-ref ref="serviceAppender"/>
+        <appender-ref ref="stdoutAppender"/>
+    </logger>
+
     <!--<logger name="org" level="INFO" additivity="false"></logger>-->
 
     <logger name="com.acupt.amazing.filter.RequestFilter" level="info" additivity="false">

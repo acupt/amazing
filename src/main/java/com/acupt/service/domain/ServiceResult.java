@@ -9,7 +9,7 @@ public class ServiceResult<T> {
 
     private String msg;
 
-    private Throwable e;
+    private transient Throwable e;
 
     private T data;
 
@@ -22,7 +22,11 @@ public class ServiceResult<T> {
     }
 
     public static <T> ServiceResult<T> newFailed(Throwable e) {
-        return new ServiceResult<T>(false).setE(e).setMsg(e.getClass().getSimpleName() + " " + e.getMessage());
+        return newFailed(e, e.getClass().getSimpleName() + ":" + e.getMessage());
+    }
+
+    public static <T> ServiceResult<T> newFailed(Throwable e, String msg) {
+        return new ServiceResult<T>(false).setE(e).setMsg(msg);
     }
 
     public boolean isSuccess() {

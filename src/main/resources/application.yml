@@ -17,8 +17,12 @@ spring:
   jpa:
     database: mysql
     show-sql: true
-    hibernate:
-      ddl-auto: update
+    hibernate.ddl-auto: update
+
+#开启对AOP的支持
+spring.aop.auto: true
+#设置代理模式 true（cglib） false(java JDK代理)
+#spring.aop.aspect-target-class: true
 
 #spring.jpa.properties.hibernate.hbm2ddl.auto: validate
 #spring.jpa.hibernate.ddl.auto: create-drop

@@ -1,6 +1,6 @@
 package com.acupt.dao;
 
-import com.acupt.domain.User;
+import com.acupt.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -27,7 +27,7 @@ public class RequestFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         filterChain.doFilter(request, response);
         if (!isStatic(uri)) {
-            logger.info("uri:{},ip:{},cost:{}ms,agent:{}", uri, ContextUtil.getRemoteIp(request),
+            logger.info("{}:{},ip:{},cost:{}ms,agent:{}", request.getMethod(), uri, ContextUtil.getRemoteIp(request),
                     System.currentTimeMillis() - t0, ContextUtil.getAgent(request));
         }
     }

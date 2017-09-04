@@ -2,10 +2,11 @@ package com.acupt.amazing.controller;
 
 import com.acupt.amazing.util.ContextUtil;
 import com.acupt.amazing.view.ApiResult;
-import com.acupt.domain.Biubiu;
+import com.acupt.entity.Biubiu;
 import com.acupt.service.BiubiuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,13 +24,13 @@ public class BiubiuController {
     @Resource
     private BiubiuService biubiuService;
 
-    @RequestMapping("/get")
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult get() {
         return ApiResult.fromServiceResult("biu", biubiuService.biu());
     }
 
-    @RequestMapping("/post")
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
     @ResponseBody
     public ApiResult post(HttpServletRequest request, @RequestParam("biu") String biu) {
         Biubiu biubiu = new Biubiu();

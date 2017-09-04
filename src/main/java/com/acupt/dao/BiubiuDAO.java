@@ -1,6 +1,6 @@
 package com.acupt.dao;
 
-import com.acupt.domain.Biubiu;
+import com.acupt.entity.Biubiu;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

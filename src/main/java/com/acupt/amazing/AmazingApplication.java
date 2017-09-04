@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @SpringBootApplication(scanBasePackages = "com.acupt")
 @EnableJpaRepositories(basePackages = "com.acupt.dao")
-@EntityScan(basePackages = "com.acupt.domain")
+@EntityScan(basePackages = "com.acupt.entity")
 @ServletComponentScan
 public class AmazingApplication {
 

@@ -1,7 +1,7 @@
 package com.acupt.test.dao;
 
 import com.acupt.dao.BiubiuDAO;
-import com.acupt.domain.Biubiu;
+import com.acupt.entity.Biubiu;
 import com.acupt.test.BaseTest;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class BiubiuDAOTest extends BaseTest {
 
     @Test
     public void testGet() {
-        out(biubiuDAO.findOne(1L));
+        print(biubiuDAO.findOne(1L));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class BiubiuDAOTest extends BaseTest {
         biubiuDO.setAgent("me");
         biubiuDO.setContent("test insert");
         biubiuDO.setGmtCreated(new Date());
-        out(biubiuDAO.save(biubiuDO));
+        print(biubiuDAO.save(biubiuDO));
     }
 
 }

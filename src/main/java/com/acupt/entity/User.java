@@ -1,4 +1,4 @@
-package com.acupt.domain;
+package com.acupt.entity;
 
 
 import javax.persistence.Entity;
