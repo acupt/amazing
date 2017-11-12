@@ -16,8 +16,11 @@ public class IndexController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(HttpServletRequest request) {
-        String agent = ContextUtil.getAgent(request).toLowerCase();
-        if (agent != null && agent.startsWith("curl/")) {
+        String agent = ContextUtil.getAgent(request);
+        if (agent == null) {
+            return "index";
+        }
+        if (agent != null && agent.toLowerCase().startsWith("curl/")) {
             return "forward:/ip";
         }
         return "index";
