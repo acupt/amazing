@@ -18,4 +18,11 @@ public class DateUtil {
     public static String formatToDateTime(Date date) {
         return dateTimeFormat.get().format(date);
     }
+
+    public static Date newDate(long time) {
+        if (time > 1000000000000L) {
+            return new Date(time);
+        }
+        return new Date(time * 1000);
+    }
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>acupt</title>
+    <style>
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<script src='/js/jquery-3.2.1.min.js'></script>
+<script src="/js/bootstrap.min.js"></script>
+<body style="margin-top: 10px">
+<div align="center">
+    <table class="table">
+        <tr class="active">
+            <td>#</td>
+            <td>QQ</td>
+            <td>STATE</td>
+            <td><a href="qrcode" target="_blank">NEW</a></td>
+        </tr>
+        <tr th:each="entry:${map}">
+            <td th:text="${entryStat.count}"></td>
+            <td th:text="${entry['key']}"></td>
+            <td th:text="${entry['value']}"></td>
+            <td>
+                <a class="btn btn-link" href="#"
+                   th:onclick="'javascript:state(\'start\',\''+${entry['key']}+'\')'">START
+                </a>
+                <a class="btn btn-link"
+                   th:onclick="'javascript:state(\'pause\',\''+${entry['key']}+'\')'">PAUSE
+                </a>
+                <a class="btn btn-link"
+                   th:onclick="'javascript:state(\'stop\',\''+${entry['key']}+'\')'">STOP
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
+<script>
+    function state(op, id) {
+        $.ajax({
+            type: "POST",
+            url: op,
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.ok) {
+                    window.location.reload(true);
+                } else {
+                    alert(result.msg)
+                }
+            }
+        })
+    }
+</script>

@@ -1,8 +1,8 @@
 package com.acupt.service;
 
 import com.acupt.dao.BiubiuDAO;
+import com.acupt.domain.Result;
 import com.acupt.entity.Biubiu;
-import com.acupt.service.domain.ServiceResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,26 +18,26 @@ public class BiubiuService {
     @Resource
     private BiubiuDAO biubiuDAO;
 
-    public ServiceResult<Biubiu> insert(Biubiu biubiu) {
+    public Result<Biubiu> insert(Biubiu biubiu) {
         biubiuDAO.saveAndFlush(biubiu);
         maxId = biubiu.getId();
-        return ServiceResult.newSuccess(biubiu);
+        return new Result<Biubiu>(biubiu);
     }
 
-    public ServiceResult<Biubiu> getById(long id) {
-        return ServiceResult.newSuccess(biubiuDAO.findOne(id));
+    public Result<Biubiu> getById(long id) {
+        return new Result<>(biubiuDAO.findOne(id));
     }
 
-    public ServiceResult<String> biu() {
+    public Result<String> biu() {
         if (maxId == 0) {
             maxId = biubiuDAO.count();
         }
         long id = (long) (Math.random() * (double) maxId + 1);
         Biubiu biubiu = biubiuDAO.findOne(id);
         if (biubiu != null) {
-            return ServiceResult.newSuccess(biubiu.getContent());
+            return new Result<>(biubiu.getContent());
         }
-        return new ServiceResult<String>(false).setMsg("you biu nothing, try?");
+        return new Result(404, "you biu nothing, try?");
     }
 
     public long getMaxId() {

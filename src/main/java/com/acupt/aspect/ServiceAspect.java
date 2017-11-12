@@ -1,6 +1,6 @@
 package com.acupt.aspect;
 
-import com.acupt.service.domain.ServiceResult;
+import com.acupt.domain.Result;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,14 +17,14 @@ public class ServiceAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Around("execution(com.acupt.service.domain.ServiceResult com.acupt.service..*(..))")
+    @Around("execution(com.acupt.domain.Result com.acupt.service..*(..))")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println(this);
         try {
             return pjp.proceed();
         } catch (Throwable e) {
             logger.error(e.getMessage(), e);
-            return ServiceResult.newFailed(e, "something wrong");
+            return new Result(-1, e.getMessage());
         }
     }
 }

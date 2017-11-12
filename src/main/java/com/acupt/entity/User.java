@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * Created by liujie on 2017/8/16.
  */
 @Entity
+@Table(indexes = {@Index(name = "idx_name", columnList = "name", unique = true)})
 public class User {
 
     @Id

@@ -1,9 +1,13 @@
 package com.acupt.amazing.controller;
 
 import com.acupt.amazing.util.ContextUtil;
-import com.acupt.amazing.view.ApiResult;
+import com.acupt.amazing.util.LoginUtil;
+import com.acupt.dao.UserDAO;
+import com.acupt.domain.Result;
 import com.acupt.entity.Biubiu;
+import com.acupt.entity.User;
 import com.acupt.service.BiubiuService;
+import com.acupt.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,21 +28,53 @@ public class BiubiuController {
     @Resource
     private BiubiuService biubiuService;
 
+    @Resource
+    private UserDAO userDAO;
+
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult get() {
-        return ApiResult.fromServiceResult("biu", biubiuService.biu());
+    public Result<String> get() {
+        return biubiuService.biu();
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult post(HttpServletRequest request, @RequestParam("biu") String biu) {
+    public Result<String> post(HttpServletRequest request, @RequestParam("biu") String biu) {
+        Result result = login(request, biu);
+        if (result.isOk()) {
+            return result;
+        }
         Biubiu biubiu = new Biubiu();
         biubiu.setContent(biu);
         biubiu.setIp(ContextUtil.getRemoteIp(request));
         biubiu.setAgent(ContextUtil.getAgent(request));
         biubiu.setGmtCreated(new Date());
         biubiuService.insert(biubiu);
-        return new ApiResult().put("biu", biubiu.getContent());
+        return new Result<>(biubiu.getContent());
+    }
+
+    private Result<String> login(HttpServletRequest request, String order) {
+        if (StringUtil.isBlank(order)) {
+            return new Result<>(1);
+        }
+        if (!order.startsWith("-u")) {
+            return new Result<>(2);
+        }
+        if (!order.contains(" ")) {
+            return new Result<>(3);
+        }
+        String[] arr = order.substring(2).split(" ");
+        if (arr.length != 2) {
+            return new Result<>(4);
+        }
+        User user = userDAO.findByName(arr[0]);
+        if (user == null) {
+            return new Result<>(5);
+        }
+        if (!user.getPassword().equals(arr[1])) {
+            return new Result<>(6);
+        }
+        LoginUtil.login(request, user);
+        return new Result<>("welcome, " + user.getNick());
     }
 }

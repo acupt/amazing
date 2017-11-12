@@ -55,8 +55,8 @@
             url: 'biu/' + wtf,
             success: function (result) {
                 var msg;
-                if (result.code == 0) {
-                    msg = result.data.biu;
+                if (result.ok) {
+                    msg = result.data;
                 } else {
                     msg = result.msg;
                 }

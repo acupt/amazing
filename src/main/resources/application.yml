@@ -27,3 +27,8 @@ spring.aop.auto: true
 #spring.jpa.properties.hibernate.hbm2ddl.auto: validate
 #spring.jpa.hibernate.ddl.auto: create-drop
 #spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
+
+#
+#elasticsearch.clustername: elasticsearch
+#elasticsearch.host: localhost
+#elasticsearch.port: 9300
