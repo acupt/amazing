@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,7 +57,7 @@ public class ToolController {
 
     @RequestMapping(value = "/2bjtime", method = RequestMethod.GET)
     @ResponseBody
-    public Result<String> bjtime(Long t) {
+    public Result<String> bjtime(@RequestParam(required = false, defaultValue = "0") Long t) {
         return new Result<String>().setData(DateUtil.format(DateUtil.newDate(t)));
     }
 
