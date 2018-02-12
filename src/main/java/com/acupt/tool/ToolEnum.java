@@ -43,7 +43,7 @@ public enum ToolEnum {
     }
 
     public String getResource() {
-        return "/tool/" + name;
+        return "tool/" + name;
     }
 
     public int getCode() {
