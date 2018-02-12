@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A CUP TIME</title>
+</head>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<script src='/js/jquery-3.2.1.min.js'></script>
+<script src='/js/jquery.form.min.js'></script>
+<script src="/js/bootstrap.min.js"></script>
+<body>
+<div id="topbar"></div>
+<div class="toolview" align="center">
+    <input id="timestamp" type="number">
+    <button class="btn-default" onclick="jsonFormat()">Format</button>
+    <input id="bjtime">
+</div>
+</body>
+</html>
+<script>
+    $("#topbar").load("topbar");
+
+    $(document).ready(function () {
+        document.getElementById('timestamp').value = new Date().getTime();
+    })
+
+    function jsonFormat() {
+        var t = document.getElementById('timestamp').value;
+        $.ajax({
+            type: "GET",
+            url: "/2bjtime",
+            data: {
+                t: t
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (!res.ok) {
+                    alert(res.msg);
+                    return;
+                }
+                document.getElementById('bjtime').value = res.data;
+            },
+            error: function (xhr, status, e) {
+                alert('something wrong ' + status);
+            }
+        });
+    }
+</script>

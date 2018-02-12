@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A CUP JSON</title>
+</head>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<script src='/js/jquery-3.2.1.min.js'></script>
+<script src='/js/jquery.form.min.js'></script>
+<script src="/js/bootstrap.min.js"></script>
+<body>
+<div id="topbar"></div>
+<div class="toolview" align="center">
+    <textarea id="jsonText" style="border-color: lightgrey;width: 60%;height: 500px"></textarea>
+    <br>
+    <button class="btn-default" onclick="jsonFormat()">Format</button>
+</div>
+</body>
+</html>
+<script>
+    $("#topbar").load("topbar");
+    function jsonFormat() {
+        var s = document.getElementById('jsonText').value;
+        $.ajax({
+            type: "GET",
+            url: "/2json",
+            data: {
+                s: s
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (!res.ok) {
+                    alert(res.msg);
+                    return;
+                }
+                document.getElementById('jsonText').value = res.data;
+            },
+            error: function (xhr, status, e) {
+                alert('something wrong ' + status);
+            }
+        });
+    }
+</script>

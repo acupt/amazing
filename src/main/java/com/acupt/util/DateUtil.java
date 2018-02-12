@@ -15,8 +15,12 @@ public class DateUtil {
         }
     };
 
-    public static String formatToDateTime(Date date) {
+    public static String format(Date date) {
         return dateTimeFormat.get().format(date);
+    }
+
+    public static String format(Date date, String parttern) {
+        return new SimpleDateFormat(parttern).format(date);
     }
 
     public static Date newDate(long time) {
