@@ -6,4 +6,5 @@ package com.acupt.amazing.web;
 public interface SessionKey {
 
     String LOGIN_CONTEXT = "_gg_login_context";
+    String QQ_SPIDER_STATE = "_qq_spider_state";
 }

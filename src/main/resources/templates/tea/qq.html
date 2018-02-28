@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>acupt</title>
+    <style>
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+<script src='/js/jquery-3.2.1.min.js'></script>
+<body style="margin-top: 10px">
+<div align="center">
+    <div id="topbar"></div>
+    <div style="padding-top: 100px">
+        <a href="/qq/main">
+            <img src="/qq/qrcode">
+        </a>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $("#topbar").load("/topbar");
+    function state(op, id) {
+        $.ajax({
+            type: "POST",
+            url: '/qq/' + op,
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.ok) {
+                    window.location.reload(true);
+                } else {
+                    alert(result.msg)
+                }
+            }
+        })
+    }
+</script>

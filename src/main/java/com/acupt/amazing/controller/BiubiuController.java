@@ -1,7 +1,7 @@
 package com.acupt.amazing.controller;
 
 import com.acupt.amazing.util.ContextUtil;
-import com.acupt.amazing.util.LoginUtil;
+import com.acupt.amazing.web.LoginContext;
 import com.acupt.dao.UserDAO;
 import com.acupt.domain.Result;
 import com.acupt.entity.Biubiu;
@@ -40,6 +40,10 @@ public class BiubiuController {
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     @ResponseBody
     public Result<String> post(HttpServletRequest request, @RequestParam("biu") String biu) {
+        if (StringUtil.isBlank(biu)) {
+            return new Result<>();
+        }
+        biu = biu.trim();
         Result result = login(request, biu);
         if (result.isOk()) {
             return result;
@@ -54,9 +58,6 @@ public class BiubiuController {
     }
 
     private Result<String> login(HttpServletRequest request, String order) {
-        if (StringUtil.isBlank(order)) {
-            return new Result<>(1);
-        }
         if (!order.startsWith("-u")) {
             return new Result<>(2);
         }
@@ -74,7 +75,7 @@ public class BiubiuController {
         if (!user.getPassword().equals(arr[1])) {
             return new Result<>(6);
         }
-        LoginUtil.login(request, user);
+        LoginContext.login(request, user);
         return new Result<>("welcome, " + user.getNick());
     }
 }

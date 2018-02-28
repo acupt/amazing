@@ -1,13 +1,15 @@
 package com.acupt.amazing.web;
 
 import com.acupt.amazing.util.ContextUtil;
+import com.acupt.domain.Tea;
 import com.acupt.entity.User;
-import com.acupt.tool.ToolEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liujie on 2017/9/15.
@@ -22,7 +24,9 @@ public class LoginContext implements Serializable {
 
     private String ip;
 
-    private List<ToolEnum> tool = Arrays.asList(ToolEnum.values());
+    private List<Tea> tea = Arrays.asList(Tea.values());
+
+    private Map<String, Object> data = new HashMap<>();
 
     public LoginContext() {
     }
@@ -53,6 +57,14 @@ public class LoginContext implements Serializable {
         return user != null;
     }
 
+    public Object putData(String key, Object value) {
+        return data.put(key, value);
+    }
+
+    public Object getData(String key) {
+        return data.get(key);
+    }
+
     public User getUser() {
         return user;
     }
@@ -73,12 +85,12 @@ public class LoginContext implements Serializable {
         return serialVersionUID;
     }
 
-    public List<ToolEnum> getTool() {
-        return tool;
+    public List<Tea> getTea() {
+        return tea;
     }
 
-    public void setTool(List<ToolEnum> tool) {
-        this.tool = tool;
+    public void setTea(List<Tea> tea) {
+        this.tea = tea;
     }
 
     public String getIp() {
@@ -87,5 +99,13 @@ public class LoginContext implements Serializable {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }

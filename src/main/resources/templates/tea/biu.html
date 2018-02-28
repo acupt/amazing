@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>acupt</title>
+</head>
+<script src='/js/jquery-3.2.1.min.js'></script>
+<body>
+<div align="center">
+    <div id="topbar"></div>
+    <div id="biuform" style="padding-top: 100px">
+        <div>
+            <input class="form-control" id="biu" type="text" style="width: 40%">
+            <br>
+            <button class="btn btn-default" style="width: 5%" onclick="biu('get')">GET</button>
+            <button class="btn btn-default" style="width: 5%" onclick="biu('post')">POST</button>
+        </div>
+        <div></div>
+        <div style="padding-top: 20px">
+            <div id="biuarea"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $("#topbar").load("/topbar");
+    function biu(wtf) {
+        var biu = $('#biu').val();
+        $.ajax({
+            type: wtf,
+            dataType: 'json',
+            data: {
+                biu: biu
+            },
+            url: 'biu/' + wtf,
+            success: function (result) {
+                var msg;
+                if (result.ok) {
+                    msg = result.data;
+                } else {
+                    msg = result.msg;
+                }
+                document.getElementById('biu').value = "";
+                document.getElementById('biuarea').innerHTML = msg;
+            },
+            error: function (xhr, status, e) {
+                alert('shirt error! ' + status + ' ' + e);
+            }
+        });
+    }
+</script>

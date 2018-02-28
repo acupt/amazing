@@ -1,7 +1,6 @@
 package com.acupt.amazing.filter;
 
 import com.acupt.amazing.util.ContextUtil;
-import com.acupt.amazing.util.LoginUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,10 +29,10 @@ public class RequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         long t0 = System.currentTimeMillis();
         String uri = request.getRequestURI();
-        if (uri.startsWith("/qq/") && !LoginUtil.isLogin(request)) {
-            response.sendRedirect("/");
-            return;
-        }
+//        if (uri.startsWith("/qq/") && !LoginContext.get(request).isLogined()) {
+//            response.sendRedirect("/");
+//            return;
+//        }
         filterChain.doFilter(request, response);
         if (!isStatic(uri)) {
             logger.info("{}:{},ip:{},cost:{}ms,agent:{}", request.getMethod(), uri, ContextUtil.getRemoteIp(request),

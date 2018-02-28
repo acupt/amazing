@@ -10,43 +10,45 @@
         }
     </style>
 </head>
-<link href="/css/bootstrap.min.css" rel="stylesheet">
 <script src='/js/jquery-3.2.1.min.js'></script>
-<script src="/js/bootstrap.min.js"></script>
 <body style="margin-top: 10px">
 <div align="center">
-    <table class="table">
-        <tr class="active">
-            <td>#</td>
-            <td>QQ</td>
-            <td>STATE</td>
-            <td><a href="qrcode" target="_blank">NEW</a></td>
-        </tr>
-        <tr th:each="entry:${map}">
-            <td th:text="${entryStat.count}"></td>
-            <td th:text="${entry['key']}"></td>
-            <td th:text="${entry['value']}"></td>
-            <td>
-                <a class="btn btn-link" href="#"
-                   th:onclick="'javascript:state(\'start\',\''+${entry['key']}+'\')'">START
-                </a>
-                <a class="btn btn-link"
-                   th:onclick="'javascript:state(\'pause\',\''+${entry['key']}+'\')'">PAUSE
-                </a>
-                <a class="btn btn-link"
-                   th:onclick="'javascript:state(\'stop\',\''+${entry['key']}+'\')'">STOP
-                </a>
-            </td>
-        </tr>
-    </table>
+    <div id="topbar"></div>
+    <div>
+        <table class="table">
+            <tr>
+                <td>#</td>
+                <td>QQ</td>
+                <td>STATE</td>
+                <td><a href="/qq/qrcode" target="_blank">NEW</a></td>
+            </tr>
+            <tr th:each="entry:${map}">
+                <td th:text="${entryStat.count}"></td>
+                <td th:text="${entry['key']}"></td>
+                <td th:text="${entry['value']}"></td>
+                <td>
+                    <a class="btn btn-link" href="#"
+                       th:onclick="'javascript:state(\'start\',\''+${entry['key']}+'\')'">START
+                    </a>
+                    <a class="btn btn-link"
+                       th:onclick="'javascript:state(\'pause\',\''+${entry['key']}+'\')'">PAUSE
+                    </a>
+                    <a class="btn btn-link"
+                       th:onclick="'javascript:state(\'stop\',\''+${entry['key']}+'\')'">STOP
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>
 <script>
+    $("#topbar").load("/topbar");
     function state(op, id) {
         $.ajax({
             type: "POST",
-            url: op,
+            url: '/qq/' + op,
             data: {
                 id: id
             },

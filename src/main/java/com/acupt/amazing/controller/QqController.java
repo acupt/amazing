@@ -1,5 +1,7 @@
 package com.acupt.amazing.controller;
 
+import com.acupt.amazing.web.LoginContext;
+import com.acupt.amazing.web.SessionKey;
 import com.acupt.domain.Result;
 import com.acupt.qspider.Qspider;
 import com.scienjus.smartqq.callback.LoginCallback;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,13 +29,13 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RequestMapping("/qq")
 @Controller
-public class SpiderController {
+public class QqController {
 
     private static Map<String, Qspider> qspiderMap = new ConcurrentHashMap<>();
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView index() {
         Map<String, Object> map = new HashMap<>();
         for (Map.Entry<String, Qspider> entry : qspiderMap.entrySet()) {
@@ -75,7 +78,7 @@ public class SpiderController {
     }
 
     @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
-    public void qrcode(HttpServletResponse response) {
+    public void qrcode(HttpServletRequest request, HttpServletResponse response) {
         Qspider qspider = new Qspider().init();
         try {
             InputStream inputStream = qspider.getQRCode();
@@ -84,19 +87,23 @@ public class SpiderController {
             logger.error(e.getMessage(), e);
             return;
         }
+        LoginContext ctx = LoginContext.get(request);
         qspider.start(new LoginCallback() {
             @Override
             public void onFailed(com.scienjus.smartqq.model.Result<?> result) {
+                ctx.putData(SessionKey.QQ_SPIDER_STATE, "login failed,retry? " + result.getMsg());
                 logger.error("login failed {} {}", result.getCode(), result.getMsg());
             }
 
             @Override
             public void onSuccess(UserInfo userInfo) {
+                ctx.putData(SessionKey.QQ_SPIDER_STATE, "SUCCESS");
                 qspiderMap.put(userInfo.getAccount(), qspider);
             }
 
             @Override
             public void onException(Throwable throwable) {
+                ctx.putData(SessionKey.QQ_SPIDER_STATE, "login failed,retry? " + throwable.getClass().getSimpleName());
                 logger.error("login exception " + throwable.getMessage(), throwable);
             }
         });

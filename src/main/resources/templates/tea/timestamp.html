@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <title>A CUP TIME</title>
 </head>
-
-<link href="/css/bootstrap.min.css" rel="stylesheet">
 <script src='/js/jquery-3.2.1.min.js'></script>
-<script src='/js/jquery.form.min.js'></script>
-<script src="/js/bootstrap.min.js"></script>
 <body>
 <style>
     .t-input {
@@ -16,7 +12,7 @@
     }
 </style>
 <div id="topbar"></div>
-<div class="toolview form-inline" align="center">
+<div class="toolview form-inline" align="center" style="padding-top: 100px">
     <input id="timestamp" type="number" class="form-control t-input">
     <button class="btn btn-default" onclick="jsonFormat()">Format</button>
     <input id="bjtime" class="form-control t-input">
@@ -24,7 +20,7 @@
 </body>
 </html>
 <script>
-    $("#topbar").load("topbar");
+    $("#topbar").load("/topbar");
 
     $(document).ready(function () {
         document.getElementById('timestamp').value = new Date().getTime();
@@ -34,7 +30,7 @@
         var t = document.getElementById('timestamp').value;
         $.ajax({
             type: "GET",
-            url: "/2bjtime",
+            url: "/tool//2bjtime",
             data: {
                 t: t
             },

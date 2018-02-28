@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<script src='/js/jquery-3.2.1.min.js'></script>
+<script src='/js/jquery.form.min.js'></script>
+<script src="/js/bootstrap.min.js"></script>
 <html xmlns:th="http://www.thymeleaf.org">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
@@ -6,8 +10,8 @@
             <a class="navbar-brand" href="/">ACUPT</a>
         </div>
         <div th:if="${ctx!=null}">
-            <ul class="nav navbar-nav" th:each="nav : ${ctx.tool}">
-                <li><a href="##" th:href="${nav.uri}" th:text="${nav.desc}">导航</a></li>
+            <ul class="nav navbar-nav" th:each="nav : ${ctx.tea}">
+                <li><a href="##" th:href="${nav.uri}" th:text="${nav.title}">导航</a></li>
             </ul>
         </div>
         <div class="navbar-right">
@@ -15,6 +19,9 @@
             <ul class="nav navbar-nav">
                 <li><a id="tip"></a></li>
                 <li><a href="##" th:text="${ctx.ip}" onclick="copyIp()">WTF</a></li>
+            </ul>
+            <ul class="nav navbar-nav" th:if="${ctx.logined}">
+                <li><a href="##" th:text="${ctx.user.nick}"></a></li>
             </ul>
         </div>
     </div>
