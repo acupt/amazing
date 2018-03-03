@@ -1,6 +1,7 @@
 package com.acupt.amazing.filter;
 
 import com.acupt.amazing.util.ContextUtil;
+import com.acupt.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -35,7 +36,9 @@ public class RequestFilter extends OncePerRequestFilter {
 //        }
         filterChain.doFilter(request, response);
         if (!isStatic(uri)) {
-            logger.info("{}:{},ip:{},cost:{}ms,agent:{}", request.getMethod(), uri, ContextUtil.getRemoteIp(request),
+            logger.info("{}:{},{},{}ms,{}", request.getMethod(),
+                    uri + (StringUtil.isBlank(request.getQueryString()) ? "" : "?" + request.getQueryString()),
+                    ContextUtil.getRemoteIp(request),
                     System.currentTimeMillis() - t0, ContextUtil.getAgent(request));
         }
     }
