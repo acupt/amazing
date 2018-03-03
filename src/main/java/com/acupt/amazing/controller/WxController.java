@@ -86,7 +86,7 @@ public class WxController {
             }
             return bean.point().getOrigin().getName() + "(" + bean.getX() + "," + bean.getY() + ")";
         }
-        if ("m".equals(content)) {
+        if ("m".equals(content.toLowerCase())) {
             return world.map(msg.getFromUserName());
         }
         return "你要爪子？\nw-上\ns-下\na-左\nd-右\nm-图";
