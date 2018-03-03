@@ -54,4 +54,9 @@ public class TeaController {
         }
         return null;
     }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test(HttpServletRequest request) {
+        return "test";
+    }
 }
