@@ -47,8 +47,9 @@ public class WxController {
         out.close();
     }
 
-    @RequestMapping(value = "/msg", headers = {"content-type=application/xml"}, method = RequestMethod.POST)
-    public void post(HttpServletResponse response, @RequestBody(required = false) Wxmsg msg) throws IOException, DocumentException {
+    @RequestMapping(value = "/msg", method = RequestMethod.POST)
+    public void post(HttpServletResponse response, @RequestBody(required = false) Wxmsg msg)
+            throws IOException, DocumentException {
         logger.info(GsonUtil.toJson(msg));
         if (msg == null) {
             response.setContentType("text/xml;charset=UTF-8");
