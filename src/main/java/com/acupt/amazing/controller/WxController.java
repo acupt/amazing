@@ -27,8 +27,12 @@ public class WxController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = "/msg", headers = {"content-type=application/xml"})
-    public void addUser(HttpServletResponse response, @RequestBody Wxmsg msg) throws IOException, DocumentException {
+    public void addUser(HttpServletResponse response, @RequestBody(required = false) Wxmsg msg) throws IOException, DocumentException {
         logger.info(GsonUtil.toJson(msg));
+        if (msg == null) {
+            response.getWriter().write("");
+            return;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("ToUserName", msg.getFromUserName());
         map.put("FromUserName", msg.getToUserName());
