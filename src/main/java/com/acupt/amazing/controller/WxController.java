@@ -4,7 +4,7 @@ import com.acupt.domain.form.wx.Wxmsg;
 import com.acupt.util.GsonUtil;
 import com.acupt.util.StringUtil;
 import com.acupt.util.XmlUtil;
-import com.acupt.world.Point;
+import com.acupt.world.Bean;
 import com.acupt.world.World;
 import com.acupt.world.WorldException;
 import org.dom4j.DocumentException;
@@ -64,11 +64,7 @@ public class WxController {
         map.put("FromUserName", msg.getToUserName());
         map.put("MsgType", "text");
         map.put("Content", response(msg));
-        if (msg.getCreateTime() > 1020064410758L) {
-            map.put("CreateTime", System.currentTimeMillis());
-        } else {
-            map.put("CreateTime", System.currentTimeMillis() / 1000);
-        }
+        map.put("CreateTime", System.currentTimeMillis() / 1000);
         response.setContentType("text/xml;charset=UTF-8");
         response.getWriter().write(XmlUtil.toXmlStr(map));
     }
@@ -77,19 +73,23 @@ public class WxController {
         if (!"text".equals(msg.getMsgType())) {
             return "此未知存在，强如本大佬也无法参透";
         }
-        if (StringUtil.isBlank(msg.getContent())) {
+        String content = msg.getContent();
+        if (StringUtil.isBlank(content)) {
             return "......";
         }
-        Point point = null;
-        try {
-            point = world.move(msg.getFromUserName(), msg.getContent());
-        } catch (WorldException e) {
-            return e.getMessage();
+        if (World.isMoveOrder(content)) {
+            Bean bean = null;
+            try {
+                bean = world.move(msg.getFromUserName(), content);
+            } catch (WorldException e) {
+                return e.getMessage();
+            }
+            return bean.point().getOrigin().getName() + "(" + bean.getX() + "," + bean.getY() + ")";
         }
-        if (point == null) {
-            return "此路不通";
+        if ("m".equals(content)) {
+            return world.map(msg.getFromUserName());
         }
-        return point.getMsg();
+        return "你要爪子？\nw-上\ns-下\na-左\nd-右\nm-图";
     }
 
 }

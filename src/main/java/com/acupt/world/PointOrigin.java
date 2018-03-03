@@ -7,14 +7,26 @@ import java.util.Random;
  */
 public enum PointOrigin {
 
-    NULL(0), SOIL(1), WATER(2), FIRE(3), WIND(4);
+    NULL(0, "无"), SOIL(1, "地"), WATER(2, "水"), FIRE(3, "火"), WIND(4, "风");
 
     private int code;
 
+    private String name;
+
     private static Random tao = new Random();
 
-    PointOrigin(int code) {
+    PointOrigin(int code, String name) {
         this.code = code;
+        this.name = name;
+    }
+
+    public static PointOrigin get(int code) {
+        for (PointOrigin origin : values()) {
+            if (origin.getCode() == code) {
+                return origin;
+            }
+        }
+        return NULL;
     }
 
     public static PointOrigin create() {
@@ -24,5 +36,9 @@ public enum PointOrigin {
 
     public int getCode() {
         return code;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -21,6 +21,10 @@ public class Bean {
         this.world = world;
     }
 
+    public Point point() {
+        return world.getPoint(x, y);
+    }
+
     public String getWxid() {
         return wxid;
     }

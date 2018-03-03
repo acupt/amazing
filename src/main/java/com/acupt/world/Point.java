@@ -14,10 +14,6 @@ public class Point {
         this.origin = origin;
     }
 
-    public String getMsg() {
-        return origin.name();
-    }
-
     public PointOrigin getOrigin() {
         return origin;
     }
