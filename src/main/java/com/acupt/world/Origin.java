@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Created by liujie on 2018/3/2.
  */
-public enum PointOrigin {
+public enum Origin {
 
     NULL(0, "无"), SOIL(1, "地"), WATER(2, "水"), FIRE(3, "火"), WIND(4, "风");
 
@@ -15,13 +15,13 @@ public enum PointOrigin {
 
     private static Random tao = new Random();
 
-    PointOrigin(int code, String name) {
+    Origin(int code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static PointOrigin get(int code) {
-        for (PointOrigin origin : values()) {
+    public static Origin get(int code) {
+        for (Origin origin : values()) {
             if (origin.getCode() == code) {
                 return origin;
             }
@@ -29,7 +29,7 @@ public enum PointOrigin {
         return NULL;
     }
 
-    public static PointOrigin create() {
+    public static Origin create() {
         int i = tao.nextInt(values().length);
         return values()[i];
     }

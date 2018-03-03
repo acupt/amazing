@@ -32,7 +32,7 @@ public class World {
         pointMap = new Point[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                pointMap[i][j] = new Point(PointOrigin.create());
+                pointMap[i][j] = new Point(Origin.create());
             }
         }
     }
