@@ -30,6 +30,7 @@ public class WxController {
     public void addUser(HttpServletResponse response, @RequestBody(required = false) Wxmsg msg) throws IOException, DocumentException {
         logger.info(GsonUtil.toJson(msg));
         if (msg == null) {
+            response.setContentType("text/xml;charset=UTF-8");
             response.getWriter().write("");
             return;
         }
