@@ -39,7 +39,9 @@ public class RequestFilter extends OncePerRequestFilter {
             logger.info("{}:{},{},{}ms,{}", request.getMethod(),
                     uri + (StringUtil.isBlank(request.getQueryString()) ? "" : "?" + request.getQueryString()),
                     ContextUtil.getRemoteIp(request),
-                    System.currentTimeMillis() - t0, ContextUtil.getAgent(request));
+                    System.currentTimeMillis() - t0,
+                    request.getHeader("content-type"),
+                    ContextUtil.getAgent(request));
         }
     }
 
