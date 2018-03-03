@@ -84,12 +84,16 @@ public class WxController {
             } catch (WorldException e) {
                 return e.getMessage();
             }
-            return bean.point().getOrigin().getName() + "(" + bean.getX() + "," + bean.getY() + ")";
+            return bean.point().getOrigin().getName();
         }
         if ("m".equals(content.toLowerCase())) {
             return world.map(msg.getFromUserName());
         }
-        return "你要爪子？\nw-上\ns-下\na-左\nd-右\nm-图";
+        if ("g".equals(content.toLowerCase())) {
+            Bean bean = world.getBean(msg.getFromUserName());
+            return String.format("%s(%d,%d)", bean.point().getOrigin().getName(), bean.getX(), bean.getY());
+        }
+        return "你要爪子？\nw-上\ns-下\na-左\nd-右\ng-位\nm-图";
     }
 
 }
