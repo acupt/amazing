@@ -71,7 +71,7 @@ public class WxController {
 
     private String response(Wxmsg msg) {
         if (!"text".equals(msg.getMsgType())) {
-            return "此未知存在，强如本大佬也无法参透";
+            return "未知的存在，强如本大佬也无法参透，你还是说人话吧";
         }
         String content = msg.getContent();
         if (StringUtil.isBlank(content)) {
@@ -93,7 +93,6 @@ public class WxController {
             Bean bean = world.getBean(msg.getFromUserName());
             return String.format("%s(%d,%d)", bean.point().getOrigin().getName(), bean.getX(), bean.getY());
         }
-        return "你要爪子？\nw-上\ns-下\na-左\nd-右\ng-位\nm-图";
+        return "你要爪子\nw-上 s-下 a-左 d-右\ng-位 m-图";
     }
-
 }
