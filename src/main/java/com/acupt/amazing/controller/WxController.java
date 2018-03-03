@@ -84,7 +84,7 @@ public class WxController {
             } catch (WorldException e) {
                 return e.getMessage();
             }
-            return bean.point().getOrigin().getName();
+            return "这是一个充满'" + bean.point().getOrigin().getName() + "'的点";
         }
         if ("m".equals(content.toLowerCase())) {
             return world.map(msg.getFromUserName());
