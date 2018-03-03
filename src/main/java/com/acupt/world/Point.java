@@ -5,20 +5,26 @@ package com.acupt.world;
  */
 public class Point {
 
-    private int origin;
+    private PointOrigin origin;
 
     public Point() {
     }
 
-    public Point(int origin) {
+    public Point(PointOrigin origin) {
         this.origin = origin;
     }
 
-    public int getOrigin() {
+    public String getMsg() {
+        return origin.name();
+    }
+
+    public PointOrigin getOrigin() {
         return origin;
     }
 
-    public void setOrigin(int origin) {
+    public void setOrigin(PointOrigin origin) {
         this.origin = origin;
     }
+
+
 }

@@ -1,9 +1,12 @@
 package com.acupt.amazing.controller;
 
 import com.acupt.domain.form.wx.Wxmsg;
-import com.acupt.util.DateUtil;
 import com.acupt.util.GsonUtil;
+import com.acupt.util.StringUtil;
 import com.acupt.util.XmlUtil;
+import com.acupt.world.Point;
+import com.acupt.world.World;
+import com.acupt.world.WorldException;
 import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +31,8 @@ public class WxController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    private World world = new World(100);
+
     @RequestMapping(value = "/msg", method = RequestMethod.GET)
     public void get(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("wx get " + request.getQueryString());
@@ -40,7 +44,6 @@ public class WxController {
         String nonce = request.getParameter("nonce");
         // 随机字符串
         String echostr = request.getParameter("echostr");
-
         PrintWriter out = response.getWriter();
         // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
         out.print(echostr);
@@ -60,7 +63,7 @@ public class WxController {
         map.put("ToUserName", msg.getFromUserName());
         map.put("FromUserName", msg.getToUserName());
         map.put("MsgType", "text");
-        map.put("Content", "hello, now is " + DateUtil.format(new Date()));
+        map.put("Content", response(msg));
         if (msg.getCreateTime() > 1020064410758L) {
             map.put("CreateTime", System.currentTimeMillis());
         } else {
@@ -68,6 +71,25 @@ public class WxController {
         }
         response.setContentType("text/xml;charset=UTF-8");
         response.getWriter().write(XmlUtil.toXmlStr(map));
+    }
+
+    private String response(Wxmsg msg) {
+        if (!"text".equals(msg.getMsgType())) {
+            return "此未知存在，强如本大佬也无法参透";
+        }
+        if (StringUtil.isBlank(msg.getContent())) {
+            return "......";
+        }
+        Point point = null;
+        try {
+            point = world.move(msg.getFromUserName(), msg.getContent());
+        } catch (WorldException e) {
+            return e.getMessage();
+        }
+        if (point == null) {
+            return "此路不通";
+        }
+        return point.getMsg();
     }
 
 }
