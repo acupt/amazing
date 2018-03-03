@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public enum Origin {
 
-    NULL(0, "无"), SOIL(1, "地"), WATER(2, "水"), FIRE(3, "火"), WIND(4, "风");
+    NULL(0, "空"), SOIL(1, "地"), WATER(2, "水"), FIRE(3, "火"), WIND(4, "风");
 
     private int code;
 
@@ -32,6 +32,13 @@ public enum Origin {
     public static Origin create() {
         int i = tao.nextInt(values().length);
         return values()[i];
+    }
+
+    public String getMsg() {
+        if (this == NULL) {
+            return "空空如也";
+        }
+        return "满满的，都是" + getName();
     }
 
     public int getCode() {
