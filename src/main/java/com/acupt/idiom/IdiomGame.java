@@ -90,7 +90,7 @@ public class IdiomGame {
     }
 
     private boolean isValid() {
-        return System.currentTimeMillis() - lastTime < 20000;
+        return System.currentTimeMillis() - lastTime < 30000;
     }
 
     public boolean isGodTime() {
