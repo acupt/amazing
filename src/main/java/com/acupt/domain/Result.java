@@ -51,6 +51,14 @@ public class Result<T> {
         return this;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return GsonUtil.toJson(this);

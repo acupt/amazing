@@ -1,6 +1,9 @@
 package com.acupt.amazing.controller;
 
+import com.acupt.domain.Result;
 import com.acupt.domain.form.wx.Wxmsg;
+import com.acupt.idiom.IdiomFactory;
+import com.acupt.idiom.IdiomGame;
 import com.acupt.util.GsonUtil;
 import com.acupt.util.StringUtil;
 import com.acupt.util.XmlUtil;
@@ -73,6 +76,32 @@ public class WxController {
         if (!"text".equals(msg.getMsgType())) {
             return "未知的存在，强如本大佬也无法参透，你还是说人话吧";
         }
+        return idiom(msg);
+    }
+
+    private String idiom(Wxmsg msg) {
+        String m = msg.getContent();
+        IdiomGame game = IdiomFactory.get(msg.getFromUserName());
+        if (game != null) {
+            Result<String> res = game.next(m);
+            if (res.getCode() == 1) {
+                IdiomFactory.remove(msg.getFromUserName());
+            }
+            return res.getMsg();
+        }
+        if (!isIdiomGame(m)) {
+            return "输入'成语'来搞一盘为所欲为的成语接龙吧";
+        }
+        game = IdiomFactory.newGame(msg.getFromUserName());
+        return "我帅我先说，" + game.getLastGodRecord().getWord();
+    }
+
+    private boolean isIdiomGame(String m) {
+        return "成语".equals(m);
+    }
+
+    private String world(Wxmsg msg) {
+
         String content = msg.getContent();
         if (StringUtil.isBlank(content)) {
             return "......";
