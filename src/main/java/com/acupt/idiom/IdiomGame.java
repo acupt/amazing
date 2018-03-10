@@ -41,6 +41,9 @@ public class IdiomGame {
     }
 
     public Result<String> next(String word) {
+        if ("认输".equals(word)) {
+            over("我也不想这么棒棒啊");
+        }
         if (!isValid()) {
             return over("我等到花儿都谢了");
         }
@@ -87,7 +90,7 @@ public class IdiomGame {
     }
 
     private boolean isValid() {
-        return System.currentTimeMillis() - lastTime < 30000;
+        return System.currentTimeMillis() - lastTime < 20000;
     }
 
     public boolean isGodTime() {
