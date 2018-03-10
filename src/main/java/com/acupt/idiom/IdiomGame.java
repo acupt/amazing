@@ -42,7 +42,7 @@ public class IdiomGame {
 
     public Result<String> next(String word) {
         if ("认输".equals(word)) {
-            over("我也不想这么棒棒啊");
+            return over("我也不想这么棒棒啊");
         }
         if (!isValid()) {
             return over("我等到花儿都谢了");
