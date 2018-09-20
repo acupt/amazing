@@ -1,17 +1,10 @@
 package com.acupt.amazing.controller;
 
-import com.acupt.domain.Result;
-import com.acupt.util.GsonUtil;
-import com.acupt.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +19,9 @@ public class DataController {
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @ResponseBody
-    public DataResult test(String username, String password, Object parameters) {
-        logger.info("test {} {} {}", username, password, GsonUtil.toJson(parameters));
-        DataResult result = check(username, password);
+    public DataResult test(@RequestBody DataRequst dataRequst) {
+        logger.info("test {}", dataRequst);
+        DataResult result = check(dataRequst.username, dataRequst.password);
         Map<String, Object> data = new HashMap<>();
         data.put("apiVersion", "1.0");
         data.put("name", "liujie-test");
@@ -41,6 +34,45 @@ public class DataController {
             return DataResult.success();
         }
         return DataResult.error(10086, "用户信息验证失败");
+    }
+
+    public static class DataRequst {
+        private String username;
+        private String password;
+        private Map<String, Object> parameters;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public Map<String, Object> getParameters() {
+            return parameters;
+        }
+
+        public void setParameters(Map<String, Object> parameters) {
+            this.parameters = parameters;
+        }
+
+        @Override
+        public String toString() {
+            return "DataRequst{" +
+                    "username='" + username + '\'' +
+                    ", password='" + password + '\'' +
+                    ", parameters=" + parameters +
+                    '}';
+        }
     }
 
     private static class DataResult<T> {
