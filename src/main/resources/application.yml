@@ -1,5 +1,5 @@
 server:
-  port: @acupt.server.port@
+  port: 8080
   max-http-header-size: 8192
   tomcat:
     uri-encoding: UTF-8
@@ -10,9 +10,9 @@ spring:
     mode: LEGACYHTML5
     encoding: UTF-8
   datasource:
-    url: @acupt.mysql.url@
-    username: @acupt.mysql.username@
-    password: @acupt.mysql.password@ #配置文件中要加引号保证准确
+    url: jdbc:mysql://localhost:3306/acupt
+    username: root
+    password: 1234 #配置文件中要加引号保证准确
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     database: mysql

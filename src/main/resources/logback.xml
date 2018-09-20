@@ -6,7 +6,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
-    <property name="LOG_HOME" value="/home/admin/log/acupt"/>
+    <property name="LOG_HOME" value="/tmp/logs/acupt"/>
 
     <property name="PATTERN_SINGLE" value="%d{yyyy-MM-dd HH:mm:ss.SSS},%level,%thread,%msg%n"/>
 
